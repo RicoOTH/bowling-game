@@ -56,19 +56,7 @@ class BowlingGame:
                 self.frame += 1 # increase the frame counter to signal that the game is over
             else:
                 self.roll_in_frame += 1
-        
-        '''
-        # handle frame increments and invalid inputs if the sum of a frame is more than 10 pins
-        if self.frame != 10 and (self.roll_in_frame == 2 or pins == 10):   # increase frame if second normal roll in frame or a strike
-            if self.roll_in_frame == 2 and pins != 10: # check if sum of pins in frame exceeds 10, except for after strike
-                if sum(self.rolls[-2:]) > 10 and self.frame < 10:
-                    raise ValueError(f"Sum for frame {self.frame} exceeded 10 pins.")
-            if self.frame < 10: # increase frame if we have not yet reached the last round
-                self.frame += 1
-                self.roll_in_frame = 1
-        else:
-            self.roll_in_frame += 1
-            '''
+
                     
         
     def score(self):
