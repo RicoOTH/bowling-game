@@ -1,0 +1,19 @@
+treat as throwaway file for random notes and ideas
+
+OOP? never used in Python before but could be a good idea as the task is relatively simple
+
+basic ideas and process structure: 
+1 frame = 2 rolls
+maximum of 10 pins after both rolls / per frame (mostly; see final round)
+spare: hit 10 after 2 rolls (e.g. [6,4])
+strike: hit 10 on 1st roll and skip second roll ([10])
+final round/frame: players can roll up to 3 times if they get a spare/strike, the sum can exceed 10 here
+
+feature                         example                         test case
+rolling a ball                  roll(pins)                      valid rolls, invalid rolls
+calculating score               10 frames, no strikes/spares    [1,4],[5,3], etc
+spare logic                     [5,5] -> bonus next roll        [6,4,2] = 12 for frame 1
+strike logic                    [10] -> bonus next 2 rolls      [10,3,4] =  17 for frame 1
+perfect game                    12x [10]                        score = 300
+gutter game                     20x [0]                         score = 0
+edge cases                      final frame spare/strikes       
