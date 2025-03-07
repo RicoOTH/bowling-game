@@ -1,5 +1,3 @@
-import sys
-
 class BowlingGame:
     """Represents a game of American ten-pin bowling.
     
