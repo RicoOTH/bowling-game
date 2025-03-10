@@ -1,0 +1,26 @@
+name: Run Unit Tests
+
+on:
+  push:
+    branches:
+      - master  # should run tests when pushing to main
+      - visualisation  # cann add other branches as needed
+  pull_request:
+    branches:
+      - master  # should run tests on pull requests going to main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Run Unit Tests
+        run: python -m unittest discover -s . -p "test_*.py"
