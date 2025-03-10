@@ -33,26 +33,26 @@ class BowlingGame:
         """
         
         # check if the number of pins is valid
-        if pins < 0 or pins > 10:
+        if pins < 0 or pins > BowlingGame.strike:
             raise ValueError("Pins must be between 0 and 10.")
         
         if len(self.rolls) >= 21:
             raise ValueError("Cannot have more than 21 rolls!")
         
-        if self.frame < 10 and self.roll_in_frame == 2 and (self.rolls[-1] + pins > 10):
+        if self.frame < BowlingGame.frames and self.roll_in_frame == 2 and (self.rolls[-1] + pins > BowlingGame.strike):
             raise ValueError(f"Sum for frame {self.frame} exceeded 10 pins.")
         
         self.rolls.append(pins)
         
-        if self.frame < 10:
-            if self.roll_in_frame == 2 or pins == 10:
+        if self.frame < BowlingGame.frames:
+            if self.roll_in_frame == 2 or pins == BowlingGame.strike:
                 self.frame += 1
                 self.roll_in_frame = 1
             else:
                 self.roll_in_frame += 1
         else:
             # handle logic of 10th frame; end game if 10th turn and no spare/strike, 21st roll (maximum), or third roll in frame (maximum)
-            if (self.frame == 10 and sum(self.rolls[-2:]) < 10) or len(self.rolls) == 21 or self.roll_in_frame > 2:
+            if self.roll_in_frame > 1 and (self.frame == BowlingGame.frames and sum(self.rolls[-2:]) < BowlingGame.strike) or len(self.rolls) == 21 or self.roll_in_frame > 2:
                 self.frame += 1 # increase the frame counter to signal that the game is over
             else:
                 self.roll_in_frame += 1
