@@ -30,17 +30,44 @@ class BowlingGame:
             ValueError: If the number of pins in a roll are invalid (less than 0 or greater than 10).
             ValueError: If the bowler hit more than 10 pins in a frame (unless it's the 10th frame).
             ValueError: If the bowler exceeds the maximum number of 21 rolls per game.
+            ValueError: If the user inputs a spare on the first roll of a frame.
+            ValueError: If the input is invalid (string outside of the allowed input).
         """
-        
+
+        def is_valid_pins(pins):
+            try:
+                pins = int(pins)
+                return True
+            except ValueError:
+                return False
+
+        # convert "x" or "X" to a strike
+        if isinstance(pins, str) and pins.upper() == "X":
+            pins = BowlingGame.strike
+
+        # convert "/" to a spare based on the last input
+        elif isinstance(pins, str) and pins == "/":
+            if self.roll_in_frame < 2:
+                raise ValueError("Spare not eligible on first roll of frame")
+            first_roll = self.rolls[-1]
+            pins = 10 - first_roll
+
+
+        elif not is_valid_pins(pins):
+            raise ValueError("Number of pins entered is invalid. Please enter a number between 0 and 10, "
+            "/ for a spare, or X fr a strike")
+        else:
+            pins = int(pins)
+
         # check if the number of pins is valid
         if pins < 0 or pins > BowlingGame.strike:
-            raise ValueError("Pins must be between 0 and 10.")
+            raise ValueError("Pins must be between 0 and 10")
         
         if len(self.rolls) >= 21:
-            raise ValueError("Cannot have more than 21 rolls!")
+            raise ValueError("Cannot have more than 21 rolls")
         
         if self.frame < BowlingGame.frames and self.roll_in_frame == 2 and (self.rolls[-1] + pins > BowlingGame.strike):
-            raise ValueError(f"Sum for frame {self.frame} exceeded 10 pins.")
+            raise ValueError("Sum for frame exceeded 10 pins")
         
         self.rolls.append(pins)
         
@@ -57,7 +84,6 @@ class BowlingGame:
             else:
                 self.roll_in_frame += 1
 
-                    
         
     def score(self):
         """Computes the (current) score of the bowling game, based on the recorded rolls.
@@ -122,7 +148,7 @@ if __name__ == '__main__':
     
     while game.frame <= 10:
         try:
-            pins = int(input(f"Frame {game.frame}, Roll {game.roll_in_frame}:"))
+            pins = (input(f"Frame {game.frame}, Roll {game.roll_in_frame}:"))
             game.roll(pins)
             print(f"Current Score: {game.score()}")
         except ValueError as e:

@@ -26,7 +26,7 @@ class BowlingGameTest(unittest.TestCase):
         """
         with self.assertRaises(ValueError) as context:
             self.game.roll(-1)
-        self.assertEqual("Pins must be between 0 and 10.", str(context.exception))
+        self.assertEqual("Pins must be between 0 and 10", str(context.exception))
     
     def test_invalid_frame(self):
         """Test case for invalid input where a bowler has hit more than 10 pins in a frame. Should raise a ValueError.
@@ -34,14 +34,40 @@ class BowlingGameTest(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             self.game.roll(8)
             self.game.roll(5)
-        self.assertEqual("Sum for frame 1 exceeded 10 pins.", str(context.exception))
+        self.assertEqual("Sum for frame exceeded 10 pins", str(context.exception))
     
     def test_too_many_rolls(self):
         """Test case if the bowler has entered too many turns. 21 rolls should be the maximum.
         """
         with self.assertRaises(ValueError) as context:
             self.roll_arbitrary(23, 5)
-        self.assertEqual("Cannot have more than 21 rolls!", str(context.exception))
+        self.assertEqual("Cannot have more than 21 rolls", str(context.exception))
+
+    def test_spare_on_first_roll(self):
+        """Test to verify that hitting a spare on the first roll of a frame is impossible.
+        """
+        with self.assertRaises(ValueError) as context:
+            self.game.roll("/")
+        self.assertEqual("Spare not eligible on first roll of frame", str(context.exception))
+
+    def test_invalid_string(self):
+        """Test to see if string inputs other than / and x (or X) are invalid.
+        """
+        with self.assertRaises(ValueError) as context:
+            self.game.roll("v")
+        self.assertEqual("Number of pins entered is invalid. Please enter a number between 0 and 10, "
+            "/ for a spare, or X fr a strike", str(context.exception))
+
+    def test_strike_and_spare_string(self):
+        """Test to verify that the string inputs for strikes and spare are valid.
+        """
+        self.game.roll("x")
+        self.assertEqual(self.game.score(), 10)
+        self.game.roll("X")
+        self.assertEqual(self.game.score(), 20)
+        self.game.roll(4)
+        self.game.roll("/")
+        self.assertEqual(self.game.score(), 54)
         
     def test_gutter_game(self):
         """Test a "gutter game" where a bowler does not hit any pins at all in the 20 rolls for a game. Should lead to a total score of 0.
@@ -105,6 +131,7 @@ class BowlingGameTest(unittest.TestCase):
             self.game.roll(9)
         self.game.roll(10)
         self.assertEqual(self.game.score(), 119)
-        
+
+
 if __name__ == '__main__':
     unittest.main()
