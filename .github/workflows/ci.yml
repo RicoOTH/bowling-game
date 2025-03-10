@@ -5,6 +5,7 @@ on:
     branches:
       - master  # should run tests when pushing to main
       - visualisation  # cann add other branches as needed
+      - minor-functionality
   pull_request:
     branches:
       - master  # should run tests on pull requests going to main
