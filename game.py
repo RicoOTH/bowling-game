@@ -194,9 +194,9 @@ class BowlingGame:
                     # handle 10th frame special print
                     if current_roll["frame"] == BowlingGame.frames:
                         if current_roll["roll_in_frame"] == 1:
-                            print(f"[{current_roll['pins']} ", end="|")
+                            print(f"[{current_roll['pins']}|{'/'}", end="|")
                         elif current_roll["roll_in_frame"] == 2:
-                            print(f"{current_roll['pins']} ", end="|")
+                            print(f"{current_roll['pins']}|{'/'}]", end="|")
                     
                     # print normal spares        
                     else:
