@@ -164,8 +164,8 @@ class BowlingGame:
         print (" |", end=" ")
         print("\nRolls:  ", end=" ")
         
-          
-        next_roll = -1        
+        
+        next_roll = -1
         i = 0
         while i < len(self.rolls):
             current_roll = self.rolls[i]
@@ -207,7 +207,9 @@ class BowlingGame:
                 else:
                     # handle 10th frame special print
                     if current_roll["frame"] == BowlingGame.frames:
-                        if current_roll["roll_in_frame"] == 2:
+                        if current_roll["roll_in_frame"] == 1:
+                            print(f"[{current_roll['pins']}|{next_roll['pins']}]", end="|")
+                        elif current_roll["roll_in_frame"] == 2:
                             print(f"{current_roll['pins']}|{next_roll['pins']}]", end="|")
                     else:
                         print(f"[{current_roll['pins']:^1}|{next_roll['pins']:^1}]", end="|")
