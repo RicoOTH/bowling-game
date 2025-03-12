@@ -90,7 +90,7 @@ class BowlingGameTest(unittest.TestCase):
         self.assertEqual(self.game.score(), 16)
         
     def test_one_strike(self): 
-        """Test a game with one singular strike on roll #1 and arbitrary rolls for the rest. Score shüuld lead to 10+3+2 for frame 1 and 3+2 for frame 2 = 20.
+        """Test a game with one singular strike on roll #1 and arbitrary rolls for the rest. Score should lead to 10+3+2 for frame 1 and 3+2 for frame 2 = 20.
         """
         self.game.roll(10)
         self.game.roll(3)
