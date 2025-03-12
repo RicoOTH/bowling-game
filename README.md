@@ -22,7 +22,7 @@ the final frame.
 
 ## How to play
 
-The game can be played on the command line with `python3 game.py` and simply adding the number of knocked down pins for each roll. It (should :) ) automatically end the game if the player is not allowed to take another roll/turn. It also computes the current score after every roll and prints out the final score at the end.
+The game can be played on the command line with `python3 game.py` and simply adding the number of knocked down pins for each roll. It (should :) ) automatically end the game if the player is not allowed to take another roll/turn. It also computes the current score after every roll and prints out the final score at the end. It also keeps track of the score via a small scoreboard visualisation (which is not yet pixel-perfect).
 
 Valid inputs for the game are the number of pins the bowler has hit in each roll. Since this is a game of American Ten-pin bowling, this number lies between 0 and 10. Additionally, the user can input the following characters:
 
