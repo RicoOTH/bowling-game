@@ -131,6 +131,19 @@ class BowlingGameTest(unittest.TestCase):
             self.game.roll(9)
         self.game.roll(10)
         self.assertEqual(self.game.score(), 119)
+        
+    def test_unable_to_roll_spare_with_more_than_10_points_in_the_last_frame(self):
+
+        with self.assertRaises(ValueError) as context:
+            #                                          VVV 2 + 9 > 10
+            rolls = [1,4,4,5,6,4,5,5,10,0,1,7,3,6,4,10,2,9,6]
+            #                                          ^^^
+            
+            for roll in rolls:
+                self.game.roll(roll)
+
+        self.assertEqual("Sum for frame 10 exceeded 10 pins.", str(context.exception))
+        
 
 
 if __name__ == '__main__':
